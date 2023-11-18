@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+
+            <div class="ligne-colonne">
+                <div class="ligne">
+                    <label for="input-ligne">Choisir le nombre de ligne</label>
+                    <input type="number" min="1" id="input-ligne">
+
+                </div>
+                <div class="colonne">
+                    <label for="input-colonne">Choisir le nombre de colonne</label>
+                    <input type="number" id="input-colonne" min="1" placeholder="Choisir le ">
+                </div>
+            </div>
+            <div class="container-btn">
+                <button type="button" class="btn btn-start">Start</button>
+                <button type="button" class="btn btn-reset">Reset</button>
+                <!-- <button type="button" class="btn btn-stop">Stop</button> -->
+            </div>
+
+        </header>
+        <div class="game-field"></div>
+
+    </div>
+    
+
+
+    <script src="app.js"></script>
+</body>
+</html>
