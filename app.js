@@ -9,7 +9,27 @@ const gameField = document.querySelector(".game-field");
 const inputLigne = document.querySelector("#input-ligne");
 const inputColonne = document.querySelector("#input-colonne");
 const btnStart = document.querySelector('.btn-start');
+const span = document.querySelector("span");
 
+const tab1 = [
+    {col : 0, line : 5},
+    {col : 0, line : 1},
+    {col : 0, line : 3},
+
+];
+
+const tab2 = [
+    {col : 0, line : 2},
+    {col : 0, line : 1},
+    {col : 0, line : 3},
+
+]
+
+
+
+// console.log("compare",comparerTableaux(tab1, tab2));
+create();
+span.textContent = generation.toString();
 
 
 
@@ -48,7 +68,6 @@ inputColonne.addEventListener("input", (e)=> {
 })
 
 
-create();
 
 function create(){
     gameField.innerHTML = '';
@@ -65,13 +84,11 @@ function createButton(colonne,raw, div, colorBoolean){
     but.setAttribute('id', `but_${colonne.toString()+'_'+raw.toString()}`);
     but.setAttribute('valeur', 'false');
     div.appendChild(but);
-    but.addEventListener("click", (e)=>{
+    but.addEventListener("mouseenter", (e)=>{
         let value = e.target.getAttribute("valeur");
         console.log(e.target);
-        // let id = e.target.id;
         e.target.setAttribute("valeur", value == "true" ? "false" : "true");
         e.target.style.backgroundColor = value == 'true' ? 'white' : 'black';
-        // getNeighbors(parseInt(id.split('_')[2]), parseInt(id.split('_')[1]));
         
     })
 }
@@ -167,35 +184,49 @@ function getButtonsAndTest(){
         element.style.backgroundColor = "white";
         element.setAttribute("valeur", "false");
     });
+    // console.log("wou");
 
 
 }
 
 function getIncrement(tableau){
-//    if(!comparerTableaux(tab, previewTab)){
-    generation++;
-    tableau.forEach(element => {
-        let but = document.querySelector(`#but_${element.col.toString()+'_'+element.raw.toString()}`);
-        but.style.backgroundColor = "black";
-        but.setAttribute('valeur', "true");
-    })
-    // previewTab = tab;
-//    }else{
+tableau.forEach(element => {
+    let but = document.querySelector(`#but_${element.col.toString()+'_'+element.raw.toString()}`);
+    but.style.backgroundColor = "black";
+    but.setAttribute('valeur', "true");
+})
+
+// if(comparerTableaux(tableau, previewTab) == true){
 //     stable = true;
-//    }
+//     console.log("true");
+// }else{
+
+   
+//     stable = false;
+    
+// }
+generation++;
+span.textContent = generation.toString();
 
 }
 
 function startGame(){
    let stu =  setInterval(() => {
-
+    // console.log("wou");
         getButtonsAndTest();
         getIncrement(tab);
-        tab = [];
+        // console.log("preview : ",previewTab);
+        // console.log("tab : ",tab);
         if(stable == true){
+            // generation = generation - 1 
+            // span.textContent = generation.toString();
             clearInterval(stu);
         }
-        console.log(generation);
+        previewTab = tab;
+       
+       
+        tab = [];
+        
     }, 1000);
 }
 
@@ -204,12 +235,13 @@ function comparerTableaux(tableau1, tableau2) {
     if (tableau1.length !== tableau2.length) {
       return false;
     }
-    tableau1.sort((a, b) => a.colonne - b.colonne || a.raw - b.raw);
-    tableau2.sort((a, b) => a.colonne - b.colonne || a.raw - b.raw);
+    let verificateur = 0;
     for (let i = 0; i < tableau1.length; i++) {
-      if (tableau1[i].colonne !== tableau2[i].colonne || tableau1[i].raw !== tableau2[i].raw) {
-        return false;
-      }
+        // console.log(tableau2.filter(el => el.col == tableau1[i].col &&  el.line == tableau1[i].line));
+        if(tableau2.filter((el) => el.col == tableau1[i].col &&  el.line == tableau1[i].line ).length == 0){
+            verificateur = verificateur + 1;
+        }
     }
-    return true;
+    console.log(verificateur);
+    return verificateur == 0 ? true : false;
   }
