@@ -1,5 +1,5 @@
 import {btnStart, container, btnRandom, btnReset} from './declaration.js'
-import { canSurvive, createLine, randomCellule, activeCellule, startGame, reset, comparerTableaux } from './function.js';
+import {  createLine, randomCellule, startGame, reset, comparerTableaux } from './function.js';
 
 
 // container.style.backgroundColor = 'red';
@@ -31,7 +31,7 @@ btnStart.addEventListener('click', ()=> {
             tabCelluleToAlive = [];
             
            
-           }, 1000);
+           }, 100);
     }
   
 });
